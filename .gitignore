@@ -1,0 +1,2 @@
+mqtt_publisher/src/main/resources/application.properties
+mqtt_subcriber/src/main/resources/application.properties
