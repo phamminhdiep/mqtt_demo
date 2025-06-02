@@ -43,6 +43,7 @@ public class Subscriber implements MqttCallback {
         try {
             if (client != null && client.isConnected()) {
                 client.disconnect();
+                client.close();
                 log.info("Disconnected from Mosquitto broker");
             }
         } catch (MqttException e) {

@@ -87,6 +87,7 @@ public class Publisher implements MqttCallback {
                 log.info("Published retained offline message");
 
                 client.disconnect(1000);
+                client.close();
                 log.info("Disconnected from Mosquitto broker");
             }
         } catch (MqttException e) {
