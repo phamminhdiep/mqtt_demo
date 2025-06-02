@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 @Slf4j
@@ -87,7 +86,7 @@ public class Publisher implements MqttCallback {
                 client.publish(topic, message);
                 log.info("Published retained offline message");
 
-                client.disconnect();
+                client.disconnect(1000);
                 log.info("Disconnected from Mosquitto broker");
             }
         } catch (MqttException e) {

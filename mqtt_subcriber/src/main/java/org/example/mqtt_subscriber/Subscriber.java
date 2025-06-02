@@ -18,6 +18,7 @@ public class Subscriber implements MqttCallback {
     private MqttClient client;
     private MqttConnectOptions options;
 
+
     @PostConstruct
     public void startListening() {
         try{
@@ -64,13 +65,18 @@ public class Subscriber implements MqttCallback {
     @Override
     public void connectionLost(Throwable cause) {
         log.error(cause.getMessage());
-        try {
-            Thread.sleep(2000);
-            client.connect(options);
-            log.info("Reconnected successfully");
-        } catch (MqttException | InterruptedException e) {
-            log.error("Reconnection failed: {}", e.getMessage());
+        while(true){
+            try {
+                Thread.sleep(3000);
+                client.connect(options);
+                client.subscribe(topic, 2);
+                log.info("Reconnected successfully");
+                break;
+            } catch (MqttException | InterruptedException e) {
+                log.error("Reconnection failed. Retrying...", e);
+            }
         }
+
     }
 
     @Override
